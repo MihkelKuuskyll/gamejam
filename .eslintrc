@@ -1,88 +1,20 @@
 {
-    "extends": [
-      "airbnb/base",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier"
-    ],
-    "plugins": ["react", "react-hooks", "@typescript-eslint"],
-    "parser": "@typescript-eslint/parser",
-    "rules": {
-      "react-hooks/rules-of-hooks": "error",
-      "semi": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      "@typescript-eslint/no-use-before-define": "off",
-      "@typescript-eslint/no-object-literal-type-assertion": "off",
-      "@typescript-eslint/camelcase": "off",
-      "@typescript-eslint/indent": "off",
-      "@typescript-eslint/no-empty-function": "off",
-      "@typescript-eslint/explicit-function-return-type": "off",
-      "react/display-name": "warn",
-      "react/no-array-index-key": "warn",
-      "import/no-cycle": "off",
-      "no-param-reassign": ["warn", { "props": false }],
-      "no-underscore-dangle": "warn",
-      "no-shadow": "off",
-      "consistent-return": "warn",
-      "no-plusplus": "warn",
-      "no-bitwise": "warn",
-      "curly": ["error", "all"],
-      "object-shorthand": ["error", "always"],
-      "comma-dangle": "off",
-      "max-len": "off",
-      "no-use-before-define": "off",
-      "import/order": "off",
-      "camelcase": "off",
-      "quote-props": "off",
-      "prefer-reflect": "off",
-      "import/prefer-default-export": "off",
-      "no-restricted-syntax": "off",
-      "no-unused-expressions": ["error", {"allowTernary": true}],
-      "react/prop-types": ["error", { "ignore": ["children", "className"], "skipUndeclared": true }],
-      "react/forbid-prop-types": "off",
-      "radix": "off",
-      "operator-linebreak": "off",
-      "indent": "off",
-      "prefer-destructuring": ["error", {"object": true, "array": false}],
-      "import/no-dynamic-require": "off",
-      "import/no-extraneous-dependencies": "off",
-      "global-require": "off",
-      "no-alert": "off",
-      "no-await-in-loop": "off",
-      "no-template-curly-in-string": "off",
-      "no-extra-boolean-cast": "off",
-      "no-implicit-coercion": ["error", { "string": true, "number": true, "boolean": true }],
-      "import/extensions": "off"
-    },
-    "globals": {
-      "window": true,
-      "document": true,
-      "fetch": true,
-      "navigator": true,
-      "alert": true,
-      "Image": true,
-      "IntersectionObserver": true,
-      "FormData": true,
-      "it": true,
-      "describe": true,
-      "cy": true,
-      "Cypress": true
-    },
-    "settings": {
-      "react": {
-        "version": "latest"
-      },
-      "import/resolver": {
-        "node": {
-          "extensions": [".js", ".jsx", ".ts", ".tsx"]
-        }
-      }
-    },
-    "overrides": [{
-        "files": ["*.ts", "*.tsx"],
-        "rules": {
-           "no-undef": "off"
-        }
-    }]
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "extends": ["airbnb", "prettier"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "rules": {
+    "max-len": ["error", {"code": 100}],
+    "prefer-promise-reject-errors": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/prop-types": ["warn"],
+    "no-return-assign": ["off"]
   }
-  
+}
