@@ -32,16 +32,13 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.4.0",
-    "eslint-config-airbnb": "17.1.1",
-    "eslint-config-prettier": "6.10.1",
-    "eslint-config-react": "1.1.7",
-    "eslint-plugin-prettier": "3.1.2",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "2.5.1",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1"
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "prettier": "^2.0.5"
   },
   "prettier": {
     "singleQuote": true,
