@@ -94,8 +94,8 @@ export default function Game() {
 
     function handleRandom() {
         const newBoard = cloneDeep(board);
-        for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < columns; x++) {
+        for (let y = 0; y < rows; y += 1) {
+            for (let x = 0; x < columns; x += 1) {
                 newBoard[y][x] = (Math.random() >= 0.7) ? 1 : 0;
             }
         }
