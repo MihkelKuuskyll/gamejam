@@ -1,9 +1,15 @@
 .cell {
     position: absolute;
 }
+.antibody {
+    background: white;
+}
 .normal {
-    background: #ccc;
+    background: red;
 }
 .deadMatter {
     background: olive;
+}
+.superSpreader {
+    background: orange;
 }
