@@ -1,3 +1,6 @@
+.CellsRemaining p{
+    font-size:1.5rem;
+}
 .Board {
     position: relative;
     margin: 0 auto;
@@ -7,16 +10,21 @@
         linear-gradient(90deg, #333 1px, transparent 1px);
 }
 
+
 .Cell {
     background: #ccc;
     position: absolute;
 }
 
-.controls {
-    margin-top: 20px;
+.Controls {
+    margin-top: 1rem;
 }
 
 .button {
-    margin-left: 12px;
+    margin-left: 1rem;
     cursor: pointer;
+}
+.Message {
+    font-size:1rem;
+    margin-top: 0.8rem;
 }

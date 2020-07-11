@@ -5,7 +5,7 @@ const level1 = {
     cellSize: 20,
     height: 60,
     width: 60,
-    maxClicks: 2,
+    maxClicks: 3,
     map: [[CellType.empty,CellType.empty,CellType.empty],
 [CellType.empty, CellType.normal, CellType.normal],
 [CellType.empty, CellType.normal, CellType.normal]],
