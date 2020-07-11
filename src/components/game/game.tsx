@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './game.css';
 import Cell from '../cell/cell';
 import cloneDeep from 'lodash/cloneDeep';
+import { useTimeout } from '../../services/hooks';
 
 export default function Game() {
     const cellSize = 20;
@@ -12,10 +13,20 @@ export default function Game() {
     let boardRef: any;
     const [board, setBoard] = useState<number[][]>(createEmptyBoard());
     const [cells, setCells] = useState<{ x: number; y: number }[]>([]);
+    const [interval, setInterval] = useState(100);
+    const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
         setCells(makeCells());
     }, [board]);
+
+    useTimeout(() => {
+        if (isRunning) {
+            runIteration();
+        }
+        setIsRunning(false);
+        
+    }, interval, [isRunning]);
 
     function createEmptyBoard() {
         const board: number[][] = [];
@@ -67,6 +78,55 @@ export default function Game() {
         return cells;
     }
 
+    function onIntervalChanged(event: any) {
+        setInterval(event?.target?.value);
+    }
+
+    function stopGame() {
+        setIsRunning(false);
+    }
+
+    function runGame() {
+        setIsRunning(true);
+        runIteration();
+    }
+
+    function runIteration() {
+        const newBoard = createEmptyBoard();
+
+        for (let y = 0; y < rows; y+=1) {
+            for (let x = 0; x < columns; x+=1) {
+                const neighbors = calculateNeighbors(board, x, y);
+                if (board[y][x]) {
+                    if (neighbors === 2 || neighbors === 3) {
+                        newBoard[y][x] = 1;
+                    } else {
+                        newBoard[y][x] = 0;
+                    }
+                } else if (!board[y][x] && neighbors === 3) {
+                    newBoard[y][x] = 1;
+                }
+            }
+        }
+        setBoard(newBoard);
+    }
+
+    function calculateNeighbors(board: number[][], x: number, y: number) {
+        let neighbors = 0;
+        const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
+        for (let i = 0; i < directions.length; i+=1) {
+            const dir = directions[i];
+            const y1 = y + dir[0];
+            const x1 = x + dir[1];
+
+            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1]) {
+                neighbors += 1;
+            }
+        }
+
+        return neighbors;
+    }
+
     return (
         <div>
             <div
@@ -81,7 +141,13 @@ export default function Game() {
                     <Cell size={cellSize} x={cell.x} y={cell.y} key={`${cell.x}-${cell.y}`}/>
                 ))}
             </div>
-            <div>Control go in here</div>
+            <div className="Controls">
+            Update every <input value={interval} onChange={onIntervalChanged} /> msec
+                    {isRunning ?
+                        <button className="button" onClick={stopGame}>Stop</button> :
+                        <button className="button" onClick={runGame}>Run</button>
+                    }
+            </div>
         </div>
     );
 }
