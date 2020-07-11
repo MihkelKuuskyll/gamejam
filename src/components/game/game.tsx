@@ -10,7 +10,7 @@ export default function Game() {
     const columns = width / cellSize;
     let boardRef: any;
     const board = createEmptyBoard();
-    const [cells, setCells] = useState<{ x: number, y: number }[]>([]);
+    const [cells, setCells] = useState<{ x: number; y: number }[]>([]);
 
     function createEmptyBoard() {
         let board: number[][] = [];
@@ -24,11 +24,11 @@ export default function Game() {
         return board;
     }
 
-    function onUserClick({ clientX, clientY }: { clientX: number, clientY: number }) {
+    function onUserClick({ clientX, clientY }: { clientX: number; clientY: number }) {
         const elemOffset = getElementOffset();
         const offsetX = clientX - elemOffset.x;
         const offsetY = clientY - elemOffset.y;
-        
+
         const x = Math.floor(offsetX / cellSize);
         const y = Math.floor(offsetY / cellSize);
 
@@ -44,8 +44,8 @@ export default function Game() {
         const doc = document.documentElement;
 
         return {
-            x: (rect.left + window.pageXOffset) - doc.clientLeft,
-            y: (rect.top + window.pageYOffset) - doc.clientTop,
+            x: rect.left + window.pageXOffset - doc.clientLeft,
+            y: rect.top + window.pageYOffset - doc.clientTop,
         };
     }
 
@@ -64,14 +64,19 @@ export default function Game() {
 
     return (
         <div>
-            <div className="Board" style={{ width, height, backgroundSize: `${cellSize}px ${cellSize}px`}} onClick={onUserClick} ref={(n) => { boardRef = n; }}>
-                {cells.map(cell => (
+            <div
+                className="Board"
+                style={{ width, height, backgroundSize: `${cellSize}px ${cellSize}px` }}
+                onClick={onUserClick}
+                ref={(n) => {
+                    boardRef = n;
+                }}
+            >
+                {cells.map((cell) => (
                     <Cell size={cellSize} x={cell.x} y={cell.y} />
                 ))}
             </div>
-            <div>
-                Control go in here
-            </div>
+            <div>Control go in here</div>
         </div>
     );
 }

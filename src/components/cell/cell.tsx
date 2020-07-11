@@ -9,11 +9,14 @@ type Props = {
 
 export default function Cell({ x, y, size }: Props) {
     return (
-        <div className="cell" style={{
-            left: `${size * x + 1}px`,
-            top: `${size * y + 1}px`,
-            width: `${size - 1}px`,
-            height: `${size - 1}px`,
-        }}/>
+        <div
+            className="cell"
+            style={{
+                left: `${size * x + 1}px`,
+                top: `${size * y + 1}px`,
+                width: `${size - 1}px`,
+                height: `${size - 1}px`,
+            }}
+        />
     );
 }
