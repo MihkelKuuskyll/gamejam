@@ -13,10 +13,10 @@ export default function Game() {
     const [cells, setCells] = useState<{ x: number; y: number }[]>([]);
 
     function createEmptyBoard() {
-        let board: number[][] = [];
-        for (let y = 0; y < rows; y++) {
+        const board: number[][] = [];
+        for (let y = 0; y < rows; y += 1) {
             board[y] = [];
-            for (let x = 0; x < columns; x++) {
+            for (let x = 0; x < columns; x += 1) {
                 board[y][x] = 0;
             }
         }
@@ -50,9 +50,9 @@ export default function Game() {
     }
 
     function makeCells() {
-        let cells = [];
-        for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < columns; x++) {
+        const cells = [];
+        for (let y = 0; y < rows; y += 1) {
+            for (let x = 0; x < columns; x += 1) {
                 if (board[y][x]) {
                     cells.push({ x, y });
                 }
@@ -73,7 +73,7 @@ export default function Game() {
                 }}
             >
                 {cells.map((cell) => (
-                    <Cell size={cellSize} x={cell.x} y={cell.y} />
+                    <Cell size={cellSize} x={cell.x} y={cell.y} key={`${cell.x}-${cell.y}`}/>
                 ))}
             </div>
             <div>Control go in here</div>
