@@ -4,19 +4,19 @@ import BoardCell from '../board-cell/boardCell';
 import cloneDeep from 'lodash/cloneDeep';
 import { useInterval } from '../../services/hooks';
 import { CellType, Cell, getRandomCellType } from '../../services/cell';
+import { getLevel } from '../../services/levels';
 
 export default function Game() {
-    const cellSize = 20;
-    const height = 60;
-    const width = 60;
+    const { height, width, cellSize, map } = getLevel(1);
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
-    const [board, setBoard] = useState<Board>(createEmptyBoard());
+    const [board, setBoard] = useState<Board>(map);
     const [cells, setCells] = useState<Cell[]>([]);
     const [interval, setInterval] = useState(100);
     const [isRunning, setIsRunning] = useState(false);
     const [message, setMessage] = useState('');
+    const [turnCounter, setTurnCounter] = useState(0);
 
     useEffect(() => {
         setCells(makeCells());
@@ -34,7 +34,9 @@ export default function Game() {
             board[y] = [];
             for (let x = 0; x < columns; x += 1) {
                 board[y][x] = CellType.empty;
+
             }
+            console.log(board);
         }
 
         return board;
@@ -42,7 +44,6 @@ export default function Game() {
 
     function runIteration() {
         const newBoard = cloneDeep(board);
-
         for (let y = 0; y < rows; y+=1) {
             for (let x = 0; x < columns; x+=1) {
                 const neighbors = calculateNeighbors(board, x, y);
@@ -71,8 +72,9 @@ export default function Game() {
         }
         else {
             setIsRunning(false);
-            setMessage("GG no re");
+            setMessage(`GG no re, it took ${turnCounter} iterations.`);
         }
+        setTurnCounter(turnCounter+1);
     }
 
     function calculateNeighbors(board: Board, x: number, y: number) {
@@ -136,10 +138,12 @@ export default function Game() {
 
     function stopGame() {
         setIsRunning(false);
+        
     }
 
     function runGame() {
         setIsRunning(true);
+        setTurnCounter(0);
     }
 
     function handleClear() {
