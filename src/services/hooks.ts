@@ -1,4 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+export function useInterval(callback: Function, intervalInMilliseconds: number, watchProperties: any[] = []) {
+    const callbackReference = useRef();
+    callbackReference.current = callback as any;
+
+    useEffect(() => {
+        if (!intervalInMilliseconds) {
+            return;
+        }
+
+        const intervalReference = setInterval(() => (callbackReference as any).current(), intervalInMilliseconds);
+
+        return () => {
+            if (intervalReference) {
+                clearInterval(intervalReference);
+            }
+        };
+    }, watchProperties);
+}
 
 export function useTimeout(callback: Function, timeoutInMilliseconds: number, watchProperties: any[] = []) {
     useEffect(() => {
