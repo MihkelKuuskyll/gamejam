@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './game.css';
 import Cell from '../cell/cell';
 import cloneDeep from 'lodash/cloneDeep';
-import { useTimeout } from '../../services/hooks';
+import { useInterval } from '../../services/hooks';
 
 export default function Game() {
     const cellSize = 20;
@@ -20,12 +20,10 @@ export default function Game() {
         setCells(makeCells());
     }, [board]);
 
-    useTimeout(() => {
+    useInterval(() => {
         if (isRunning) {
             runIteration();
         }
-        setIsRunning(false);
-        
     }, interval, [isRunning]);
 
     function createEmptyBoard() {
