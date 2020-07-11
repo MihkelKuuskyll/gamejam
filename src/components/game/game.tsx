@@ -7,13 +7,13 @@ import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activ
 import { getLevel } from '../../services/levels';
 
 export default function Game() {
-    const { height, width, cellSize, map } = getLevel(1);
+    const { height, width, cellSize, map } = getLevel(8);
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
     const [board, setBoard] = useState<Board>(map);
     const [cells, setCells] = useState<Cell[]>([]);
-    const [interval, setInterval] = useState(100);
+    const [interval, setInterval] = useState(500);
     const [isRunning, setIsRunning] = useState(false);
     const [message, setMessage] = useState('');
     const [turnCounter, setTurnCounter] = useState(0);
@@ -24,6 +24,7 @@ export default function Game() {
 
     useInterval(() => {
         if (isRunning) {
+            setIsRunning(false);
             nextTurn();
         }
     }, interval, [isRunning]);
@@ -42,7 +43,7 @@ export default function Game() {
     }
 
     function nextTurn() {
-        const newBoard = getNextBoard(board);
+        const newBoard = getNextBoard();
         const hasAnyChanges = getHasAnyChanges(board, newBoard);
         if (hasAnyChanges) {
             setBoard(newBoard);
@@ -54,7 +55,7 @@ export default function Game() {
         setTurnCounter(turnCounter+1);
     }
 
-    function getNextBoard(board: Board) {
+    function getNextBoard() {
         let newBoard = cloneDeep(board);
 
         const antiBodies = [];
@@ -91,7 +92,7 @@ export default function Game() {
             const y1 = y + direction[0];
             const x1 = x + direction[1];
 
-            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] !== CellType.empty) {
+            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && ![CellType.empty, CellType.antibody].includes(board[y1][x1])) {
                 neighbors += 1;
             }
         }

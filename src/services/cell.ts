@@ -61,8 +61,8 @@ function infectAllNearbyEmpty(superSpreader: CellLocation, board: Board, columns
     directions.forEach(direction => {
         const y1 = superSpreader.y + direction[0];
         const x1 = superSpreader.x + direction[1];
-        if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.normal) {
-            board[y1][x1] = CellType.empty;
+        if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.empty) {
+            board[y1][x1] = CellType.normal;
         }
     });
     board[superSpreader.y][superSpreader.x] = CellType.normal;
@@ -71,13 +71,18 @@ function infectAllNearbyEmpty(superSpreader: CellLocation, board: Board, columns
 
 function killAllNearbyEnemies(antibody: CellLocation, board: Board, columns: number, rows: number) {
     const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
+    let hasKilledEnemies = false;
     directions.forEach(direction => {
         const y1 = antibody.y + direction[0];
         const x1 = antibody.x + direction[1];
         if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && [CellType.superSpreader, CellType.normal].includes(board[y1][x1])) {
+            hasKilledEnemies = true;
             board[y1][x1] = CellType.empty;
         }
     });
-    board[antibody.y][antibody.x] = CellType.empty;
+    if (hasKilledEnemies) {
+        board[antibody.y][antibody.x] = CellType.empty;
+    }
+    
     return board;
 }
