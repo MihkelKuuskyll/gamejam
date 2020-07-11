@@ -6,8 +6,8 @@ import { useInterval } from '../../services/hooks';
 
 export default function Game() {
     const cellSize = 20;
-    const height = 600;
-    const width = 800;
+    const height = 60;
+    const width = 60;
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
@@ -15,6 +15,7 @@ export default function Game() {
     const [cells, setCells] = useState<{ x: number; y: number }[]>([]);
     const [interval, setInterval] = useState(100);
     const [isRunning, setIsRunning] = useState(false);
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         setCells(makeCells());
@@ -39,6 +40,7 @@ export default function Game() {
     }
 
     function onUserClick({ clientX, clientY }: { clientX: number; clientY: number }) {
+        setMessage("");
         const elemOffset = getElementOffset();
         const offsetX = clientX - elemOffset.x;
         const offsetY = clientY - elemOffset.y;
@@ -89,13 +91,15 @@ export default function Game() {
     }
 
     function handleClear() {
+        setMessage("");
         setBoard(createEmptyBoard());
     }
 
     function handleRandom() {
+        setMessage("");
         const newBoard = cloneDeep(board);
-        for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < columns; x++) {
+        for (let y = 0; y < rows; y += 1) {
+            for (let x = 0; x < columns; x += 1) {
                 newBoard[y][x] = (Math.random() >= 0.7) ? 1 : 0;
             }
         }
@@ -118,7 +122,23 @@ export default function Game() {
                 }
             }
         }
-        setBoard(newBoard);
+
+        let hasAnyChanges = false;
+        for (let y = 0; y < rows; y+=1) {
+            for (let x = 0; x < columns; x+=1) {
+                if (board[y][x] !== newBoard[y][x]) {
+                    hasAnyChanges = true;
+                    break;
+                }
+            }
+        }
+        if (hasAnyChanges) {
+            setBoard(newBoard);
+        }
+        else {
+            setIsRunning(false);
+            setMessage("GG no re");
+        }
     }
 
     function calculateNeighbors(board: number[][], x: number, y: number) {
@@ -159,6 +179,9 @@ export default function Game() {
                     }
                         <button className="button" onClick={handleRandom}>Random</button>
                         <button className="button" onClick={handleClear}>Clear</button>
+            </div>
+            <div className="Message">
+                {message}
             </div>
         </div>
     );
