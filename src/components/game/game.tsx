@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './game.css';
 import Cell from '../cell/cell';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default function Game() {
     const cellSize = 20;
@@ -9,8 +10,12 @@ export default function Game() {
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
-    const board = createEmptyBoard();
+    const [board, setBoard] = useState<number[][]>(createEmptyBoard());
     const [cells, setCells] = useState<{ x: number; y: number }[]>([]);
+
+    useEffect(() => {
+        setCells(makeCells());
+    }, [board]);
 
     function createEmptyBoard() {
         const board: number[][] = [];
@@ -33,10 +38,10 @@ export default function Game() {
         const y = Math.floor(offsetY / cellSize);
 
         if (x >= 0 && x <= columns && y >= 0 && y <= rows) {
-            board[y][x] = Boolean(board[y][x]) === true ? 0 : 1;
+            const newBoard = cloneDeep(board);
+            newBoard[y][x] = Boolean(newBoard[y][x]) === true ? 0 : 1;
+            setBoard(newBoard);
         }
-
-        setCells(makeCells());
     }
 
     function getElementOffset() {

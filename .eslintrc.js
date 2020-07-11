@@ -12,6 +12,7 @@ module.exports = {
         "@typescript-eslint/no-use-before-define": "off",
         "curly": ["error", "all"],
         "import/extensions": "off",
+        "import/order": "off",
         "no-bitwise": "warn",
         "no-param-reassign": ["warn", { "props": false }],
         "no-plusplus": "warn",
