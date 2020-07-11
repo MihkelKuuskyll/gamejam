@@ -1,0 +1,9 @@
+.cell {
+    position: absolute;
+}
+.normal {
+    background: #ccc;
+}
+.deadMatter {
+    background: olive;
+}
