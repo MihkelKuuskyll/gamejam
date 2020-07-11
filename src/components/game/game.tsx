@@ -25,7 +25,6 @@ export default function Game() {
 
     useInterval(() => {
         if (isRunning) {
-            setIsRunning(false);
             nextTurn();
         }
     }, interval, [isRunning]);
@@ -52,14 +51,14 @@ export default function Game() {
             for (let x = 0; x < columns; x+=1) {
                 const neighbors = calculateNeighbors(board, x, y);
                 const isEmptyWith3Neighbors = board[y][x] === CellType.empty && neighbors === 3;
-                if (board[y][x] === CellType.normal) {
+                if (board[y][x] === CellType.virus) {
                     if (neighbors === 2 || neighbors === 3) {
-                        newBoard[y][x] = CellType.normal;
+                        newBoard[y][x] = CellType.virus;
                     } else {
                         newBoard[y][x] = CellType.empty;
                     }
                 } else if (isEmptyWith3Neighbors) {
-                    newBoard[y][x] = CellType.normal;
+                    newBoard[y][x] = CellType.virus;
                 } else if (board[y][x] === CellType.antibody) {
                     antiBodies.push({ x, y });
                 } else if (board[y][x] === CellType.superSpreader) {
@@ -186,7 +185,7 @@ export default function Game() {
         const newBoard = cloneDeep(board);
         for (let y = 0; y < rows; y += 1) {
             for (let x = 0; x < columns; x += 1) {
-                newBoard[y][x] = (Math.random() >= 0.7) ? CellType.normal : CellType.empty;
+                newBoard[y][x] = (Math.random() >= 0.7) ? CellType.virus : CellType.empty;
             }
         }
         setBoard(newBoard);

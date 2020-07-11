@@ -7,8 +7,8 @@ const level1 = {
     width: 60,
     maxClicks: 3,
     map: [[CellType.empty,CellType.empty,CellType.empty],
-[CellType.empty, CellType.normal, CellType.normal],
-[CellType.empty, CellType.normal, CellType.normal]],
+[CellType.empty, CellType.virus, CellType.virus],
+[CellType.empty, CellType.virus, CellType.virus]],
 };
 
 const level2 = {
@@ -16,9 +16,9 @@ const level2 = {
     height: 60,
     width: 60,
     maxClicks: 3,
-    map: [[CellType.normal,CellType.empty,CellType.empty],
-[CellType.empty, CellType.normal, CellType.empty],
-[CellType.normal, CellType.empty, CellType.normal]],
+    map: [[CellType.virus,CellType.empty,CellType.empty],
+[CellType.empty, CellType.virus, CellType.empty],
+[CellType.virus, CellType.empty, CellType.virus]],
 };
 
 const level3 = {
@@ -26,9 +26,9 @@ const level3 = {
     height: 60,
     width: 60,
     maxClicks: 3,
-    map: [[CellType.normal,CellType.empty,CellType.empty],
-[CellType.empty, CellType.normal, CellType.empty],
-[CellType.normal, CellType.empty, CellType.normal]],
+    map: [[CellType.virus,CellType.empty,CellType.empty],
+[CellType.empty, CellType.virus, CellType.empty],
+[CellType.virus, CellType.empty, CellType.virus]],
 };
 
 const level4 = {
@@ -38,7 +38,7 @@ const level4 = {
     maxClicks: 3,
     map: [[CellType.empty,CellType.empty,CellType.empty],
 [CellType.deadMatter, CellType.empty, CellType.empty],
-[CellType.empty, CellType.empty, CellType.normal]],
+[CellType.empty, CellType.empty, CellType.virus]],
 };
 
 const level5 = {
@@ -46,7 +46,7 @@ const level5 = {
     height: 60,
     width: 60,
     maxClicks: 3,
-    map: [[CellType.normal,CellType.empty,CellType.deadMatter],
+    map: [[CellType.virus,CellType.empty,CellType.deadMatter],
 [CellType.deadMatter, CellType.deadMatter, CellType.empty],
 [CellType.empty, CellType.empty, CellType.empty]],
 };
@@ -67,8 +67,8 @@ const antibodyExampleLevel = {
     width: 100,
     maxClicks: 5,
     map: [
-        [CellType.antibody, CellType.empty, CellType.normal, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.antibody, CellType.normal, CellType.empty, CellType.empty],
+        [CellType.antibody, CellType.empty, CellType.virus, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.antibody, CellType.virus, CellType.empty, CellType.empty],
         [CellType.empty, CellType.empty, CellType.antibody, CellType.empty, CellType.empty],
         [CellType.empty, CellType.empty, CellType.empty, CellType.antibody, CellType.empty],
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
@@ -80,8 +80,8 @@ const superSpreaderExampleLevel = {
     width: 100,
     maxClicks: 5,
     map: [
-        [CellType.superSpreader, CellType.normal, CellType.normal, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.normal, CellType.empty, CellType.empty],
+        [CellType.superSpreader, CellType.virus, CellType.virus, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty],
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],

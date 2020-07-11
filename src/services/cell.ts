@@ -12,7 +12,7 @@ export enum CellType {
     antibody = 'antibody',
     deadMatter = 'deadMatter',
     empty = 'empty',
-    normal = 'normal',
+    virus = 'virus',
     superSpreader = 'superSpreader',
 }
 
@@ -22,7 +22,7 @@ export function activateAntiBodies(antiBodies: CellLocation[], board: Board, col
         directions.forEach(direction => {
             const y1 = antibody.y + direction[0];
             const x1 = antibody.x + direction[1];
-            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.normal) {
+            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.virus) {
                 board = killAllNearbyEnemies(antibody, board, columns, rows);
             }
         });
@@ -36,7 +36,7 @@ export function activateSuperSpreaders(superSpreaders: CellLocation[], board: Bo
         directions.forEach(direction => {
             const y1 = superSpreader.y + direction[0];
             const x1 = superSpreader.x + direction[1];
-            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.normal) {
+            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.virus) {
                 board = infectAllNearbyEmpty(superSpreader, board, columns, rows);
             }
         });
@@ -46,7 +46,7 @@ export function activateSuperSpreaders(superSpreaders: CellLocation[], board: Bo
 
 export function getRandomCellType() {
     if (Math.random() > 0.5) {
-        return CellType.normal;
+        return CellType.virus;
     }
     if (Math.random() > 0.5) {
         return CellType.deadMatter;
@@ -63,10 +63,10 @@ function infectAllNearbyEmpty(superSpreader: CellLocation, board: Board, columns
         const y1 = superSpreader.y + direction[0];
         const x1 = superSpreader.x + direction[1];
         if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.empty) {
-            board[y1][x1] = CellType.normal;
+            board[y1][x1] = CellType.virus;
         }
     });
-    board[superSpreader.y][superSpreader.x] = CellType.normal;
+    board[superSpreader.y][superSpreader.x] = CellType.virus;
     return board;
 }
 
@@ -76,7 +76,7 @@ function killAllNearbyEnemies(antibody: CellLocation, board: Board, columns: num
     directions.forEach(direction => {
         const y1 = antibody.y + direction[0];
         const x1 = antibody.x + direction[1];
-        if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && [CellType.superSpreader, CellType.normal].includes(board[y1][x1])) {
+        if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && [CellType.superSpreader, CellType.virus].includes(board[y1][x1])) {
             hasKilledEnemies = true;
             board[y1][x1] = CellType.empty;
         }
