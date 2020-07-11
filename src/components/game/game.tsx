@@ -7,7 +7,7 @@ import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activ
 import { getLevel } from '../../services/levels';
 
 export default function Game() {
-    const { height, width, cellSize, map } = getLevel(8);
+    const { height, width, cellSize, map, maxClicks } = getLevel(1);
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
@@ -16,6 +16,7 @@ export default function Game() {
     const [interval, setInterval] = useState(500);
     const [isRunning, setIsRunning] = useState(false);
     const [message, setMessage] = useState('');
+    const [cellsUsed, setCellsUsed] = useState(0);
     const [turnCounter, setTurnCounter] = useState(0);
 
     useEffect(() => {
@@ -28,19 +29,6 @@ export default function Game() {
             nextTurn();
         }
     }, interval, [isRunning]);
-
-    function createEmptyBoard() {
-        const board: Board = [];
-        for (let y = 0; y < rows; y += 1) {
-            board[y] = [];
-            for (let x = 0; x < columns; x += 1) {
-                board[y][x] = CellType.empty;
-
-            }
-        }
-
-        return board;
-    }
 
     function nextTurn() {
         const newBoard = getNextBoard();
@@ -118,7 +106,8 @@ export default function Game() {
         for (let y = 0; y < rows; y += 1) {
             for (let x = 0; x < columns; x += 1) {
                 if (board[y][x] !== CellType.empty) {
-                    cells.push({ x, y, type: board[y][x]});
+                    const isOriginal = board[y][x] === map[y][x];
+                    cells.push({ x, y, type: board[y][x], isOriginal });
                 }
             }
         }
@@ -134,12 +123,31 @@ export default function Game() {
 
         const x = Math.floor(offsetX / cellSize);
         const y = Math.floor(offsetY / cellSize);
+        
 
         if (x >= 0 && x <= columns && y >= 0 && y <= rows) {
+            const cell = cells.find(cell => cell.x === x && cell.y === y);
+            if (cell?.isOriginal) {
+                return;
+            }
+    
             const newBoard = cloneDeep(board);
             newBoard[y][x] = newBoard[y][x] !== CellType.empty ? CellType.empty : getRandomCellType();
+            const newCell = newBoard[y][x];
+            
+            if(newCell === CellType.empty){
+                setCellsUsed(cellsUsed - 1);
+            }
+            else if(cellsUsed < maxClicks) {
+                setCellsUsed(cellsUsed + 1);
+            }
+            else {
+                return;
+            }
+
             setBoard(newBoard);
-        }
+        };
+       
     }
 
     function getElementOffset() {
@@ -168,7 +176,9 @@ export default function Game() {
 
     function handleClear() {
         setMessage("");
-        setBoard(createEmptyBoard());
+        setBoard(map);
+        setTurnCounter(0);
+        setCellsUsed(0);
     }
 
     function handleRandom() {
@@ -180,12 +190,15 @@ export default function Game() {
             }
         }
         setBoard(newBoard);
+        setCellsUsed(0);
     }
 
     return (
         <div>
-            <div
-                className="Board"
+            <div className="CellsRemaining">
+                <p>Cells remaining: {maxClicks-cellsUsed}</p>
+            </div>
+            <div className="Board"
                 style={{ width, height, backgroundSize: `${cellSize}px ${cellSize}px` }}
                 onClick={editCell}
                 ref={(n) => {
@@ -196,6 +209,7 @@ export default function Game() {
                     <BoardCell cell={cell} size={cellSize} key={`${cell.x}-${cell.y}`}/>
                 ))}
             </div>
+
             <div className="Controls">
             Update every <input value={interval} onChange={onIntervalChanged} /> msec
                     {isRunning ?
