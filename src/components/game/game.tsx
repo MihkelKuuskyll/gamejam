@@ -88,9 +88,21 @@ export default function Game() {
 
     function runGame() {
         setIsRunning(true);
-        runIteration();
     }
 
+    function handleClear() {
+        setBoard(createEmptyBoard());
+    }
+
+    function handleRandom() {
+        const newBoard = cloneDeep(board);
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < columns; x++) {
+                newBoard[y][x] = (Math.random() >= 0.7) ? 1 : 0;
+            }
+        }
+        setBoard(newBoard);
+    } 
     function runIteration() {
         const newBoard = createEmptyBoard();
 
@@ -145,8 +157,10 @@ export default function Game() {
             Update every <input value={interval} onChange={onIntervalChanged} /> msec
                     {isRunning ?
                         <button className="button" onClick={stopGame}>Stop</button> :
-                        <button className="button" onClick={runGame}>Run</button>
+                        <button className="button" onClick={runGame}>Run</button> 
                     }
+                        <button className="button" onClick={handleRandom}>Random</button>
+                        <button className="button" onClick={handleClear}>Clear</button>
             </div>
         </div>
     );
