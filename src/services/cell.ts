@@ -2,6 +2,7 @@ export type Cell = {
     x: number;
     y: number;
     type: CellType;
+    isOriginal: boolean;
 }
 
 export enum CellType {
