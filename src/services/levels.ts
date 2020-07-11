@@ -71,7 +71,6 @@ export function getLevel(levelNumber: number) {
         5: level5,
         6: level6,
     };
-console.log(x[levelNumber.toString()]);
     return x[levelNumber];
 }
 
@@ -79,5 +78,6 @@ type Level = {
     cellSize: number;
     height: number;
     width: number;
+    maxClicks: number;
     map: CellType[][];
 }

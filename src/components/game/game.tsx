@@ -36,7 +36,6 @@ export default function Game() {
                 board[y][x] = CellType.empty;
 
             }
-            console.log(board);
         }
 
         return board;
