@@ -3,8 +3,8 @@ import './game.css';
 import BoardCell from '../board-cell/boardCell';
 import cloneDeep from 'lodash/cloneDeep';
 import { useInterval } from '../../services/hooks';
+import { getLevel, levelEndMessage } from '../../services/levels';
 import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activateAntiBodies, getNeighbors as getNeighboursCount } from '../../services/cell';
-import { getLevel } from '../../services/levels';
 import sampleSize from 'lodash/sampleSize';
 
 export default function Game() {
@@ -33,14 +33,18 @@ export default function Game() {
     function nextTurn() {
         const newBoard = getNextBoard();
         const hasAnyChanges = getHasAnyChanges(board, newBoard);
+        
+
         if (hasAnyChanges) {
             setBoard(newBoard);
         }
-        else {
-            setIsRunning(false);
-            setMessage(`GG no re, it took ${turnCounter} iterations.`);
-        }
+        else { 
+             setIsRunning(false); 
+             const messageType = getIsEmptyBoard(newBoard) ? 'success' : 'fail';
+             setMessage(levelEndMessage[messageType](turnCounter));
+             }
         setTurnCounter(turnCounter+1);
+        
     }
 
     function getNextBoard() {
@@ -81,6 +85,19 @@ export default function Game() {
             }
         }
         return hasAnyChanges;
+    }
+
+    function getIsEmptyBoard(board: Board) {
+        let emptyBoard = true;
+        for (let y = 0; y < rows; y+=1) {
+            for (let x = 0; x < columns; x+=1) {
+                if (board[y][x] !== CellType.empty) {
+                    emptyBoard = false;
+                    break;
+                }
+            }
+        }
+        return emptyBoard;
     }
 
     function makeCells() {
