@@ -7,7 +7,7 @@ import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activ
 import { getLevel } from '../../services/levels';
 
 export default function Game() {
-    const { height, width, cellSize, map, maxClicks } = getLevel(1);
+    const { height, width, cellSize, map, maxClicks } = getLevel(8);
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
@@ -115,6 +115,9 @@ export default function Game() {
     }
 
     function editCell({ clientX, clientY }: { clientX: number; clientY: number }) {
+        if (isRunning) {
+            return;
+        }
         setMessage("");
         const elemOffset = getElementOffset();
         const offsetX = clientX - elemOffset.x;
@@ -157,10 +160,6 @@ export default function Game() {
             x: rect.left + window.pageXOffset - doc.clientLeft,
             y: rect.top + window.pageYOffset - doc.clientTop,
         };
-    }
-
-    function onIntervalChanged(event: any) {
-        setInterval(event?.target?.value);
     }
 
     function stopGame() {
@@ -210,7 +209,6 @@ export default function Game() {
             </div>
 
             <div className="Controls">
-            Update every <input value={interval} onChange={onIntervalChanged} /> msec
                     {isRunning ?
                         <button className="button" onClick={stopGame}>Stop</button> :
                         <button className="button" onClick={runGame}>Run</button> 
