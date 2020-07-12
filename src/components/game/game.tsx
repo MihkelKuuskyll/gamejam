@@ -18,9 +18,9 @@ export default function Game() {
     let boardRef: any;
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
-    const [cellSize,setCellSize] = useState(0);
+    const [cellSize, setCellSize] = useState(0);
     const [map, setMap] = useState<Board>([]);
-    const [maxClicks,setMaxClicks] = useState(0);
+    const [maxClicks, setMaxClicks] = useState(0);
     const [board, setBoard] = useState<Board>(map);
     const [cells, setCells] = useState<Cell[]>([]);
     const [interval, setInterval] = useState(500);
@@ -32,7 +32,7 @@ export default function Game() {
     const [currentLevel, setCurrentLevel] = useState(1);
     const rows = height / cellSize;
     const columns = width / cellSize;
-    const [hasRoundEnded,setHasRoundEnded] = useState(false);
+    const [hasRoundEnded, setHasRoundEnded] = useState(false);
 
     useEffect(() => {
         if (isLoading) {
@@ -50,13 +50,17 @@ export default function Game() {
         setMaxClicks(level.maxClicks);
         setIsLoading(false);
         setBoard(level.map);
-    },[currentLevel] );
+    }, [currentLevel]);
 
-    useInterval(() => {
-        if (isRunning) {
-            nextTurn();
-        }
-    }, interval, [isRunning]);
+    useInterval(
+        () => {
+            if (isRunning) {
+                nextTurn();
+            }
+        },
+        interval,
+        [isRunning],
+    );
 
     function nextTurn() {
         const newBoard = getNextBoard();
@@ -64,15 +68,13 @@ export default function Game() {
 
         if (hasAnyChanges) {
             setBoard(newBoard);
+        } else {
+            setIsRunning(false);
+            const messageType = getIsEmptyBoard(newBoard) ? 'success' : 'fail';
+            setMessage(levelEndMessage[messageType](turnCounter));
+            setHasRoundEnded(true);
         }
-        else { 
-             setIsRunning(false); 
-             const messageType = getIsEmptyBoard(newBoard) ? 'success' : 'fail';
-             setMessage(levelEndMessage[messageType](turnCounter));
-             setHasRoundEnded(true);
-             }
-        setTurnCounter(turnCounter+1);
-        
+        setTurnCounter(turnCounter + 1);
     }
 
     function getNextBoard() {
@@ -247,32 +249,59 @@ export default function Game() {
             </div>
 
             <div className="Controls">
-                    {isRunning ?
+                {isRunning ? (
                     <>
-                        <button className="button" onClick={stopGame}>Stop</button>
-                    </>:
-                    null
-                    }
-                    {!hasRoundEnded && !isRunning ?
+                        <button className="button" onClick={stopGame}>
+                            Stop
+                        </button>
+                    </>
+                ) : null}
+                {!hasRoundEnded && !isRunning ? (
                     <>
-                        <button className="button" onClick={runGame}>Run</button> 
-                        <button className="button" onClick={handleRandom}>Random</button>
-                        <button className="button" onClick={() => {handleClear(); setHasRoundEnded(false);}}>Clear</button>
-                    </>:
-                    null
-                    }
+                        <button className="button" onClick={runGame}>
+                            Run
+                        </button>
+                        <button className="button" onClick={handleRandom}>
+                            Random
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => {
+                                handleClear();
+                                setHasRoundEnded(false);
+                            }}
+                        >
+                            Clear
+                        </button>
+                    </>
+                ) : null}
             </div>
             <div className="Message">
                 <p>{message}</p>
-                {!isRunning && hasRoundEnded?
-                <>
-                <button className="nextButton" onClick={() => {handleClear(); setHasRoundEnded(false);}}>Try again</button>
-                <button className="nextButton" onClick={() => {setCurrentLevel(currentLevel + 1);setHasRoundEnded(false);setMessage('');}}>Continue</button>
-                </> :
-                null
-                }
-                
-             </div>
+                {!isRunning && hasRoundEnded ? (
+                    <>
+                        <button
+                            className="nextButton"
+                            onClick={() => {
+                                handleClear();
+                                setHasRoundEnded(false);
+                            }}
+                        >
+                            Try again
+                        </button>
+                        <button
+                            className="nextButton"
+                            onClick={() => {
+                                setCurrentLevel(currentLevel + 1);
+                                setHasRoundEnded(false);
+                                setMessage('');
+                            }}
+                        >
+                            Continue
+                        </button>
+                    </>
+                ) : null}
+            </div>
         </div>
     );
 }

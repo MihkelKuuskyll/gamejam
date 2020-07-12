@@ -1,5 +1,4 @@
-import { CellType, Board } from "./cell";
-
+import { CellType, Board } from './cell';
 
 const level1 = {
     cellSize: 20,
@@ -31,16 +30,126 @@ const oneAntibodyLevel = {
     width: 200,
     maxClicks: 1,
     map: [
-        [CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.virus, CellType.virus, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.virus, CellType.empty, CellType.virus],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.virus, CellType.empty],
+        [
+            CellType.empty,
+            CellType.virus,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.virus,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+        ],
+        [
+            CellType.virus,
+            CellType.virus,
+            CellType.virus,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.virus,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.virus,
+            CellType.empty,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.virus,
+            CellType.virus,
+            CellType.empty,
+            CellType.virus,
+        ],
+        [
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.empty,
+            CellType.virus,
+            CellType.empty,
+            CellType.empty,
+            CellType.virus,
+            CellType.empty,
+        ],
     ],
 };
 
@@ -127,9 +236,11 @@ type Level = {
     width: number;
     maxClicks: number;
     map: Board;
-}
+};
 
 export const levelEndMessage = {
-    success: (turnCounter: number) => `GG, you did it! It took ${turnCounter} you iterations. Next time it won't be as easy!`,
-    fail: (turnCounter: number) => `You have failed to stop the virus from spreading, it took you  ${turnCounter} iterations.`,
+    success: (turnCounter: number) =>
+        `GG, you did it! It took ${turnCounter} you iterations. Next time it won't be as easy!`,
+    fail: (turnCounter: number) =>
+        `You have failed to stop the virus from spreading, it took you  ${turnCounter} iterations.`,
 };
