@@ -15,6 +15,7 @@ import {
 } from '../../services/cell';
 import sampleSize from 'lodash/sampleSize';
 import logo from '../art/logo.png';
+import Tutorial from '../tutorial/tutorial';
 /* import soundfile from './background.mp3'; */
 import Sound from 'react-sound';
 
@@ -328,11 +329,17 @@ export default function Game() {
                         </button>}
                     </>
                 )}
+            <Tutorial />
+            <div className="Authors">
+                <p>created by not mario brothers
+                </p>
             </div>
-            <Sound
+            
+            <Sound loop
                 url={x}
                 playStatus="PLAYING"
             />
+        </div>
         </div>
     );
 }

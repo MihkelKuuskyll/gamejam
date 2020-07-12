@@ -1,0 +1,34 @@
+
+.Tutorial {
+    align-items: left;
+    text-align:left;
+    width: 85%;
+    margin-top:20rem;
+    margin-left:6rem;
+}
+
+.Tutorial h3 {
+    margin-left:49rem;
+    color:#d34c5e;
+    font-weight:bold;
+    font-size: 1.8rem;
+}
+
+.Tutorial img {
+    width:25rem;
+    height:8rem;
+    margin-top:3.5rem;
+}
+.Tutorial th {
+    margin-top:0rem;
+    font-size:1.6rem;
+    font-weight:bold;
+    color:#d34c5e;
+}
+
+.Tutorial td {
+    margin-top:0rem;
+    font-size:1.3rem;
+    font-weight:bold;
+    color:#f18896;
+};
