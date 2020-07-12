@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from 'react';
 
 export function useInterval(callback: Function, intervalInMilliseconds: number, watchProperties: any[] = []) {
