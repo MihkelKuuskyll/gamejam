@@ -15,13 +15,13 @@ import {
 import sampleSize from 'lodash/sampleSize';
 
 export default function Game() {
-    const { height, width, cellSize, map, maxClicks } = getLevel(8);
+    const { height, width, cellSize, map, maxClicks } = getLevel(3);
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
     const [board, setBoard] = useState<Board>(map);
     const [cells, setCells] = useState<Cell[]>([]);
-    const [interval, setInterval] = useState(500);
+    const [interval, setInterval] = useState(100);
     const [isRunning, setIsRunning] = useState(false);
     const [message, setMessage] = useState('');
     const [cellsUsed, setCellsUsed] = useState(0);
@@ -211,7 +211,7 @@ export default function Game() {
     return (
         <div>
             <div className="CellsRemaining">
-                <p>Cells remaining: {maxClicks - cellsUsed}</p>
+                <p>Antibodies remaining: {maxClicks - cellsUsed}</p>
             </div>
             <div
                 className="Board"

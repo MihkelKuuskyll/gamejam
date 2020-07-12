@@ -24,15 +24,22 @@ const level2 = {
     ],
 };
 
-const level3 = {
+const oneAntibodyLevel = {
     cellSize: 20,
-    height: 60,
-    width: 60,
-    maxClicks: 3,
+    height: 200,
+    width: 200,
+    maxClicks: 1,
     map: [
-        [CellType.virus, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.virus, CellType.empty],
-        [CellType.virus, CellType.empty, CellType.virus],
+        [CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.virus, CellType.virus, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.virus, CellType.empty, CellType.virus],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.virus, CellType.empty],
     ],
 };
 
@@ -103,7 +110,7 @@ export function getLevel(levelNumber: number) {
     const x: { [key: string]: Level } = {
         1: level1,
         2: level2,
-        3: level3,
+        3: oneAntibodyLevel,
         4: level4,
         5: level5,
         6: level6,
