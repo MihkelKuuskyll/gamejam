@@ -42,9 +42,9 @@ const level1 = {
 };
 
 const level2 = {
-    cellSize: 20,
-    height: 140,
-    width: 140,
+    cellSize: 60,
+    height: 420,
+    width: 420,
     maxClicks: 1,
     map: [
         [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
@@ -58,9 +58,9 @@ const level2 = {
 };
 
 const firstGlider = {
-    cellSize: 20,
-    height: 200,
-    width: 200,
+    cellSize: 47,
+    height: 470,
+    width: 470,
     maxClicks: 1,
     map: [
         [
@@ -187,9 +187,9 @@ const firstGlider = {
 };
 
 const firstDeadMatter = {
-    cellSize: 20,
-    height: 120,
-    width: 120,
+    cellSize: 70,
+    height: 420,
+    width: 420,
     maxClicks: 1,
     map: [
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
@@ -203,9 +203,9 @@ const firstDeadMatter = {
 
 const firstSuperSpread
  = {
-    cellSize: 20,
-    height: 200,
-    width: 200,
+    cellSize: 47,
+    height: 470,
+    width: 470,
     maxClicks: 1,
     map: [
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
@@ -223,9 +223,9 @@ const firstSuperSpread
 
 
 const level6 = {
-    cellSize: 20,
-    height: 200,
-    width: 200,
+    cellSize: 47,
+    height: 470,
+    width: 470,
     maxClicks: 2,
     map: [
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
@@ -242,9 +242,9 @@ const level6 = {
 };
 
 const level7 = {
-    cellSize: 20,
-    height: 200,
-    width: 200,
+    cellSize: 47,
+    height: 470,
+    width: 470,
     maxClicks: 1,
     map: [
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.deadMatter, CellType.superSpreader],
@@ -261,9 +261,9 @@ const level7 = {
 };
 
 const level8 = {
-    cellSize: 20,
-    height: 200,
-    width: 200,
+    cellSize: 47,
+    height: 470,
+    width: 470,
     maxClicks: 3,
     map: [
         [CellType.empty, CellType.virus, CellType.empty, CellType.deadMatter, CellType.antibody, CellType.antibody, CellType.deadMatter, CellType.empty, CellType.empty, CellType.empty],
