@@ -146,7 +146,7 @@ export default function Game() {
     }
 
     function editCell({ clientX, clientY }: { clientX: number; clientY: number }) {
-        if (isRunning) {
+        if (isRunning || hasRoundEnded) {
             return;
         }
         setMessage('');
