@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/gamejam/static/css/main.6d79f350.chunk.css",
+    "main.js": "/gamejam/static/js/main.926a2b8d.chunk.js",
+    "main.js.map": "/gamejam/static/js/main.926a2b8d.chunk.js.map",
+    "runtime-main.js": "/gamejam/static/js/runtime-main.e7671b98.js",
+    "runtime-main.js.map": "/gamejam/static/js/runtime-main.e7671b98.js.map",
+    "static/js/2.250afbc5.chunk.js": "/gamejam/static/js/2.250afbc5.chunk.js",
+    "static/js/2.250afbc5.chunk.js.map": "/gamejam/static/js/2.250afbc5.chunk.js.map",
+    "index.html": "/gamejam/index.html",
+    "precache-manifest.fbf7826d89d932dda594fa7633a52821.js": "/gamejam/precache-manifest.fbf7826d89d932dda594fa7633a52821.js",
+    "service-worker.js": "/gamejam/service-worker.js",
+    "static/css/main.6d79f350.chunk.css.map": "/gamejam/static/css/main.6d79f350.chunk.css.map",
+    "static/js/2.250afbc5.chunk.js.LICENSE.txt": "/gamejam/static/js/2.250afbc5.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e7671b98.js",
+    "static/js/2.250afbc5.chunk.js",
+    "static/css/main.6d79f350.chunk.css",
+    "static/js/main.926a2b8d.chunk.js"
+  ]
+}
