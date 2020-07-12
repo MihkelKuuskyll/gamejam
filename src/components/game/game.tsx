@@ -5,6 +5,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { useInterval } from '../../services/hooks';
 import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activateAntiBodies, getNeighbors as getNeighboursCount } from '../../services/cell';
 import { getLevel } from '../../services/levels';
+import sampleSize from 'lodash/sampleSize';
 
 export default function Game() {
     const { height, width, cellSize, map, maxClicks } = getLevel(8);
@@ -164,15 +165,23 @@ export default function Game() {
     }
 
     function handleRandom() {
-        setMessage("");
-        const newBoard = cloneDeep(board);
+        setMessage('');
+        const newBoard = cloneDeep(map);
+        const emptyCells = [];
         for (let y = 0; y < rows; y += 1) {
             for (let x = 0; x < columns; x += 1) {
-                newBoard[y][x] = (Math.random() >= 0.7) ? CellType.virus : CellType.empty;
+                if (newBoard[y][x] === CellType.empty) {
+                    emptyCells.push({ x, y });
+                }
             }
         }
+        const randomPicks = sampleSize(emptyCells, maxClicks);
+        randomPicks.forEach(pick => {
+            newBoard[pick.y][pick.x] = CellType.virus;
+        });
+
         setBoard(newBoard);
-        setCellsUsed(0);
+        setCellsUsed(maxClicks);
     }
 
     return (
