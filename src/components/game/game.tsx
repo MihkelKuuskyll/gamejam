@@ -13,6 +13,12 @@ import {
     getNeighbors as getNeighboursCount,
 } from '../../services/cell';
 import sampleSize from 'lodash/sampleSize';
+import logo from '../art/logo.png';
+/* import soundfile from './background.mp3'; */
+import Sound from 'react-sound';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const x = require('./background.mp3');
 
 export default function Game() {
     let boardRef: any;
@@ -249,6 +255,10 @@ export default function Game() {
 
     return (
         <div>
+            <div className="Logo">
+                <img src={logo} alt="Logo"/>
+                <p>Virus goes brr brr - you better stop it!</p>
+            </div>
             <div className="CellsRemaining">
                 <p>Antibodies remaining: {maxClicks - cellsUsed}</p>
             </div>
@@ -315,6 +325,10 @@ export default function Game() {
                     </>
                 )}
             </div>
+            <Sound
+                url={x}
+                playStatus="PLAYING"
+            />
         </div>
     );
 }

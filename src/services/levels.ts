@@ -28,9 +28,9 @@ export const levelEndMessage = {
 };
 
 const level1 = {
-    cellSize: 20,
-    height: 60,
-    width: 60,
+    cellSize: 80,
+    height: 240,
+    width: 240,
     maxClicks: 1,
     map: [
         [CellType.empty, CellType.empty, CellType.empty],
