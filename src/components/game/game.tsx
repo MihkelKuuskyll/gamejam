@@ -32,14 +32,21 @@ export default function Game() {
     function nextTurn() {
         const newBoard = getNextBoard();
         const hasAnyChanges = getHasAnyChanges(board, newBoard);
+        const isEmptyBoard = getIsEmptyBoard(newBoard);
+
         if (hasAnyChanges) {
             setBoard(newBoard);
         }
+        else if(isEmptyBoard) {
+            setIsRunning(false);
+            setMessage(`GG, you did it! It took ${turnCounter} iterations. Next time it won't be as easy!`);
+        }
         else {
             setIsRunning(false);
-            setMessage(`GG no re, it took ${turnCounter} iterations.`);
+            setMessage(`You failed to stop the virus from spreading. It took ${turnCounter} iterations.`);
         }
         setTurnCounter(turnCounter+1);
+        
     }
 
     function getNextBoard() {
@@ -98,6 +105,19 @@ export default function Game() {
             }
         }
         return hasAnyChanges;
+    }
+
+    function getIsEmptyBoard(board: Board) {
+        let emptyBoard = true;
+        for (let y = 0; y < rows; y+=1) {
+            for (let x = 0; x < columns; x+=1) {
+                if (board[y][x] !== CellType.empty) {
+                    emptyBoard = false;
+                    break;
+                }
+            }
+        }
+        return emptyBoard;
     }
 
     function makeCells() {
