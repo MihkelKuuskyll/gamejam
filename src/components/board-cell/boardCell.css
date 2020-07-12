@@ -1,15 +1,16 @@
 .cell {
+    background-size: cover;
     position: absolute;
 }
 .antibody {
-    background: white;
+    background-image: url('./white-blood-cell.svg');
 }
 .virus {
-    background: red;
+    background-image: url('./virus.svg');
 }
 .deadMatter {
-    background: olive;
+    background-image: url('./dead-matter.svg');
 }
 .superSpreader {
-    background: orange;
+    background-image: url('./superspreader.svg');
 }
