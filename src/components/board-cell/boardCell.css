@@ -3,13 +3,13 @@
     position: absolute;
 }
 .antibody {
-    background-image: url('./white_blood_cell.svg');
+    background-image: url('./antibody.svg');
 }
 .virus {
     background-image: url('./virus.svg');
 }
 .deadMatter {
-    background-image: url('./dead_matter.svg');
+    background-image: url('./deadmatter.svg');
 }
 .superSpreader {
     background-image: url('./superspreader.svg');
