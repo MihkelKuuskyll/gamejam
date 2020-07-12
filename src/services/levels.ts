@@ -5,9 +5,11 @@ export function getLevel(levelNumber: number) {
         1: level1,
         2: level2,
         3: firstGlider,
-        4: level4,
-        5: level5,
+        4: firstDeadMatter,
+        5: firstSuperSpread,
         6: level6,
+        7: level7,
+        8: level8,
     };
     return x[levelNumber];
 }
@@ -184,7 +186,7 @@ const firstGlider = {
     ],
 };
 
-const level4 = {
+const firstDeadMatter = {
     cellSize: 20,
     height: 120,
     width: 120,
@@ -199,7 +201,7 @@ const level4 = {
     ],
 };
 
-const level5
+const firstSuperSpread
  = {
     cellSize: 20,
     height: 200,
@@ -237,4 +239,42 @@ const level6 = {
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.superSpreader, CellType.empty, CellType.empty],
         [CellType.empty, CellType.superSpreader, CellType.empty, CellType.superSpreader, CellType.empty, CellType.superSpreader, CellType.superSpreader, CellType.empty, CellType.empty, CellType.empty],
     ],
+};
+
+const level7 = {
+    cellSize: 20,
+    height: 200,
+    width: 200,
+    maxClicks: 1,
+    map: [
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.deadMatter, CellType.superSpreader],
+        [CellType.empty, CellType.virus, CellType.virus, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.deadMatter, CellType.empty],
+        [CellType.virus, CellType.virus, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.superSpreader, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.superSpreader, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.deadMatter, CellType.deadMatter, CellType.deadMatter, CellType.superSpreader, CellType.empty, CellType.superSpreader, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.virus, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.superSpreader, CellType.deadMatter, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.virus, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.deadMatter, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.virus],
+        [CellType.virus, CellType.virus, CellType.virus, CellType.virus, CellType.virus, CellType.virus, CellType.virus, CellType.virus, CellType.virus, CellType.virus],
+    ],
+};
+
+const level8 = {
+    cellSize: 20,
+    height: 200,
+    width: 200,
+    maxClicks: 3,
+    map: [
+        [CellType.empty, CellType.virus, CellType.empty, CellType.deadMatter, CellType.antibody, CellType.antibody, CellType.deadMatter, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.virus, CellType.empty, CellType.deadMatter, CellType.empty, CellType.empty, CellType.deadMatter, CellType.virus, CellType.virus, CellType.virus],
+        [CellType.empty, CellType.virus, CellType.empty, CellType.deadMatter, CellType.empty, CellType.empty, CellType.deadMatter, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.deadMatter, CellType.empty, CellType.deadMatter, CellType.deadMatter, CellType.virus, CellType.empty, CellType.deadMatter, CellType.deadMatter, CellType.empty, CellType.empty],
+        [CellType.superSpreader, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.superSpreader, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.superSpreader, CellType.deadMatter, CellType.deadMatter, CellType.virus, CellType.empty, CellType.deadMatter, CellType.deadMatter, CellType.empty, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.deadMatter, CellType.empty, CellType.empty, CellType.deadMatter, CellType.empty, CellType.virus, CellType.empty],
+        [CellType.virus, CellType.virus, CellType.virus, CellType.deadMatter, CellType.empty, CellType.empty, CellType.deadMatter, CellType.empty, CellType.virus, CellType.empty],
+        [CellType.empty, CellType.empty, CellType.empty, CellType.deadMatter, CellType.antibody, CellType.antibody, CellType.deadMatter, CellType.empty, CellType.virus, CellType.empty],
+    ]
 };

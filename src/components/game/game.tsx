@@ -22,6 +22,7 @@ const x = require('./background.mp3');
 
 export default function Game() {
     let boardRef: any;
+    const interval = 300;
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
     const [cellSize, setCellSize] = useState(0);
@@ -29,7 +30,6 @@ export default function Game() {
     const [maxClicks, setMaxClicks] = useState(0);
     const [board, setBoard] = useState<Board>(map);
     const [cells, setCells] = useState<Cell[]>([]);
-    const [interval, setInterval] = useState(500);
     const [isLoading, setIsLoading] = useState(true);
     const [isRunning, setIsRunning] = useState(false);
     const [message, setMessage] = useState('');
@@ -49,6 +49,9 @@ export default function Game() {
     }, [board]);
 
     useEffect(() => {
+        if (currentLevel > 8) {
+            return;
+        }
         const level = getLevel(currentLevel);
         setHeight(level.height);
         setWidth(level.width);
