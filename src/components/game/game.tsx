@@ -4,7 +4,7 @@ import BoardCell from '../board-cell/boardCell';
 import cloneDeep from 'lodash/cloneDeep';
 import { useInterval } from '../../services/hooks';
 import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activateAntiBodies } from '../../services/cell';
-import { getLevel } from '../../services/levels';
+import { getLevel, levelEndMessage } from '../../services/levels';
 
 export default function Game() {
     const { height, width, cellSize, map, maxClicks } = getLevel(1);
@@ -32,19 +32,16 @@ export default function Game() {
     function nextTurn() {
         const newBoard = getNextBoard();
         const hasAnyChanges = getHasAnyChanges(board, newBoard);
-        const isEmptyBoard = getIsEmptyBoard(newBoard);
+        
 
         if (hasAnyChanges) {
             setBoard(newBoard);
         }
-        else if(isEmptyBoard) {
-            setIsRunning(false);
-            setMessage(`GG, you did it! It took ${turnCounter} iterations. Next time it won't be as easy!`);
-        }
-        else {
-            setIsRunning(false);
-            setMessage(`You failed to stop the virus from spreading. It took ${turnCounter} iterations.`);
-        }
+        else { 
+             setIsRunning(false); 
+             const messageType = getIsEmptyBoard(newBoard) ? 'success' : 'fail';
+             setMessage(levelEndMessage[messageType](turnCounter));
+             }
         setTurnCounter(turnCounter+1);
         
     }
