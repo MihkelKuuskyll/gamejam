@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/gamejam/precache-manifest.fbf7826d89d932dda594fa7633a52821.js"
+  "/gamejam/precache-manifest.cb1a9c3d91d6e79676977e6f79dc6587.js"
 );
 
 self.addEventListener('message', (event) => {
