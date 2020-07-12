@@ -52,6 +52,7 @@ export default function Game() {
 
     useEffect(() => {
         if (currentLevel > 8) {
+            setCurrentLevel(1);
             return;
         }
         const level = getLevel(currentLevel);
