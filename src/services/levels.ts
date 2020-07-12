@@ -8,8 +8,6 @@ export function getLevel(levelNumber: number) {
         4: level4,
         5: level5,
         6: level6,
-        7: antibodyExampleLevel,
-        8: superSpreaderExampleLevel,
     };
     return x[levelNumber];
 }
@@ -238,31 +236,5 @@ const level6 = {
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.deadMatter],
         [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.superSpreader, CellType.empty, CellType.empty],
         [CellType.empty, CellType.superSpreader, CellType.empty, CellType.superSpreader, CellType.empty, CellType.superSpreader, CellType.superSpreader, CellType.empty, CellType.empty, CellType.empty],
-    ],
-};
-const antibodyExampleLevel = {
-    cellSize: 20,
-    height: 100,
-    width: 100,
-    maxClicks: 5,
-    map: [
-        [CellType.antibody, CellType.empty, CellType.virus, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.antibody, CellType.virus, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.antibody, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.antibody, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-    ],
-};
-const superSpreaderExampleLevel = {
-    cellSize: 20,
-    height: 100,
-    width: 100,
-    maxClicks: 5,
-    map: [
-        [CellType.superSpreader, CellType.virus, CellType.virus, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.virus, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
     ],
 };

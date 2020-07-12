@@ -29,7 +29,7 @@ export default function Game() {
     const [message, setMessage] = useState('');
     const [cellsUsed, setCellsUsed] = useState(0);
     const [turnCounter, setTurnCounter] = useState(0);
-    const [currentLevel, setCurrentLevel] = useState(6);
+    const [currentLevel, setCurrentLevel] = useState(1);
     const rows = height / cellSize;
     const columns = width / cellSize;
     const [hasRoundEnded, setHasRoundEnded] = useState(false);
