@@ -68,7 +68,7 @@ export default function Game() {
         } else {
             setMessage(levelEndMessage.fail(turnCounter));
         }
-    }, [hasWonRound]);
+    }, [hasRoundEnded, hasWonRound]);
 
     useInterval(
         () => {
