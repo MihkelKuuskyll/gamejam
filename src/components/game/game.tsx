@@ -33,6 +33,7 @@ export default function Game() {
     const rows = height / cellSize;
     const columns = width / cellSize;
     const [hasRoundEnded, setHasRoundEnded] = useState(false);
+    const [hasWonRound, setHasWonRound] = useState(false);
 
     useEffect(() => {
         if (isLoading) {
@@ -49,8 +50,19 @@ export default function Game() {
         setMap(level.map);
         setMaxClicks(level.maxClicks);
         setIsLoading(false);
-        setBoard(level.map);
+        reset(level.map);
     }, [currentLevel]);
+
+    useEffect(() => {
+        if (!hasRoundEnded) {
+            return setMessage('');
+        }
+        if (hasWonRound) {
+            setMessage(levelEndMessage.success(turnCounter));
+        } else {
+            setMessage(levelEndMessage.fail(turnCounter));
+        }
+    }, [hasWonRound]);
 
     useInterval(
         () => {
@@ -66,15 +78,12 @@ export default function Game() {
         const newBoard = getNextBoard();
         const hasAnyChanges = getHasAnyChanges(board, newBoard);
 
-        if (hasAnyChanges) {
-            setBoard(newBoard);
-        } else {
-            setIsRunning(false);
-            const messageType = getIsEmptyBoard(newBoard) ? 'success' : 'fail';
-            setMessage(levelEndMessage[messageType](turnCounter));
-            setHasRoundEnded(true);
+        if (!hasAnyChanges) {
+            return endRound(board);
         }
-        setTurnCounter(turnCounter + 1);
+
+        setBoard(newBoard);
+        setTurnCounter(turnCounter + 1);  
     }
 
     function getNextBoard() {
@@ -118,17 +127,17 @@ export default function Game() {
         return hasAnyChanges;
     }
 
-    function getIsEmptyBoard(board: Board) {
-        let emptyBoard = true;
+    function getHasWonRound(board: Board) {
+        let hasWon = true;
         for (let y = 0; y < rows; y += 1) {
             for (let x = 0; x < columns; x += 1) {
-                if (board[y][x] !== CellType.empty) {
-                    emptyBoard = false;
+                if ([CellType.virus, CellType.superSpreader].includes(board[y][x])) {
+                    hasWon = false;
                     break;
                 }
             }
         }
-        return emptyBoard;
+        return hasWon;
     }
 
     function makeCells() {
@@ -194,7 +203,13 @@ export default function Game() {
         };
     }
 
-    function stopGame() {
+    function endRound(board: Board) {
+        setIsRunning(false);
+        setHasRoundEnded(true);
+        setHasWonRound(getHasWonRound(board));
+    }
+
+    function pauseGame() {
         setIsRunning(false);
     }
 
@@ -203,11 +218,13 @@ export default function Game() {
         setTurnCounter(0);
     }
 
-    function handleClear() {
+    function reset(newMap?: Board) {
         setMessage('');
-        setBoard(map);
+        setBoard(newMap || map);
         setTurnCounter(0);
         setCellsUsed(0);
+        setHasRoundEnded(false);
+        setHasWonRound(false);
     }
 
     function handleRandom() {
@@ -223,7 +240,7 @@ export default function Game() {
         }
         const randomPicks = sampleSize(emptyCells, maxClicks);
         randomPicks.forEach((pick) => {
-            newBoard[pick.y][pick.x] = CellType.virus;
+            newBoard[pick.y][pick.x] = CellType.antibody;
         });
 
         setBoard(newBoard);
@@ -249,58 +266,54 @@ export default function Game() {
             </div>
 
             <div className="Controls">
-                {isRunning ? (
+                {isRunning && (
                     <>
-                        <button className="button" onClick={stopGame}>
-                            Stop
+                        <button className="button" onClick={pauseGame}>
+                            Pause
                         </button>
                     </>
-                ) : null}
-                {!hasRoundEnded && !isRunning ? (
+                )}
+                {!hasRoundEnded && !isRunning && (
                     <>
                         <button className="button" onClick={runGame}>
                             Run
                         </button>
                         <button className="button" onClick={handleRandom}>
-                            Random
+                            {`I'm feeling lucky`}
                         </button>
                         <button
                             className="button"
                             onClick={() => {
-                                handleClear();
-                                setHasRoundEnded(false);
+                                reset();
                             }}
                         >
                             Clear
                         </button>
                     </>
-                ) : null}
+                )}
             </div>
             <div className="Message">
                 <p>{message}</p>
-                {!isRunning && hasRoundEnded ? (
+                {!isRunning && hasRoundEnded && (
                     <>
-                        <button
+                        {!hasWonRound && <button
                             className="nextButton"
                             onClick={() => {
-                                handleClear();
-                                setHasRoundEnded(false);
+                                reset();
                             }}
                         >
                             Try again
-                        </button>
-                        <button
+                        </button>}
+                        {hasWonRound && <button
                             className="nextButton"
                             onClick={() => {
                                 setCurrentLevel(currentLevel + 1);
-                                setHasRoundEnded(false);
-                                setMessage('');
                             }}
                         >
                             Continue
-                        </button>
+                        </button>}
                     </>
-                ) : null}
+                )}
             </div>
         </div>
     );

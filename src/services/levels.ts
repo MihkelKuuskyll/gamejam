@@ -4,7 +4,7 @@ const level1 = {
     cellSize: 80,
     height: 240,
     width: 240,
-    maxClicks: 3,
+    maxClicks: 1,
     map: [
         [CellType.empty, CellType.empty, CellType.empty],
         [CellType.empty, CellType.virus, CellType.virus],
@@ -13,14 +13,18 @@ const level1 = {
 };
 
 const level2 = {
-    cellSize: 80,
-    height: 240,
-    width: 240,
-    maxClicks: 3,
+    cellSize: 20,
+    height: 140,
+    width: 140,
+    maxClicks: 1,
     map: [
-        [CellType.virus, CellType.empty, CellType.empty],
-        [CellType.empty, CellType.virus, CellType.empty],
-        [CellType.virus, CellType.empty, CellType.virus],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.virus, CellType.virus, CellType.virus],
+        [CellType.virus, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty, CellType.empty],
     ],
 };
 
