@@ -109,3 +109,8 @@ type Level = {
     maxClicks: number;
     map: CellType[][];
 }
+
+export const levelEndMessage = {
+    success: (turnCounter: number) => `GG, you did it! It took ${turnCounter} iterations. Next time it won't be as easy!`,
+    fail: (turnCounter: number) => `You have failed to stop the virus from spreading, it took ${turnCounter} iterations.`,
+};
