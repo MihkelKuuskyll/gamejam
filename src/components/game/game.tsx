@@ -3,11 +3,12 @@ import './game.css';
 import BoardCell from '../board-cell/boardCell';
 import cloneDeep from 'lodash/cloneDeep';
 import { useInterval } from '../../services/hooks';
-import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activateAntiBodies } from '../../services/cell';
 import { getLevel, levelEndMessage } from '../../services/levels';
+import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activateAntiBodies, getNeighbors as getNeighboursCount } from '../../services/cell';
+import sampleSize from 'lodash/sampleSize';
 
 export default function Game() {
-    const { height, width, cellSize, map, maxClicks } = getLevel(1);
+    const { height, width, cellSize, map, maxClicks } = getLevel(8);
     const rows = height / cellSize;
     const columns = width / cellSize;
     let boardRef: any;
@@ -53,15 +54,13 @@ export default function Game() {
         const superSpreaders = [];
         for (let y = 0; y < rows; y+=1) {
             for (let x = 0; x < columns; x+=1) {
-                const neighbors = calculateNeighbors(board, x, y);
-                const isEmptyWith3Neighbors = board[y][x] === CellType.empty && neighbors === 3;
-                if (board[y][x] === CellType.virus) {
-                    if (neighbors === 2 || neighbors === 3) {
-                        newBoard[y][x] = CellType.virus;
-                    } else {
-                        newBoard[y][x] = CellType.empty;
-                    }
-                } else if (isEmptyWith3Neighbors) {
+                const neighboursCount = getNeighboursCount(board, x, y, columns, rows);
+                const isVirusCellWithInvalidNeighborsCount = board[y][x] === CellType.virus && (neighboursCount < 2 || neighboursCount > 3);
+                const isEmptyCellWith3Neighbors = board[y][x] === CellType.empty && neighboursCount === 3;
+
+                if (isVirusCellWithInvalidNeighborsCount) {
+                    newBoard[y][x] = CellType.empty;
+                } else if (isEmptyCellWith3Neighbors) {
                     newBoard[y][x] = CellType.virus;
                 } else if (board[y][x] === CellType.antibody) {
                     antiBodies.push({ x, y });
@@ -73,22 +72,6 @@ export default function Game() {
         newBoard = activateSuperSpreaders(superSpreaders, newBoard, columns, rows);
         newBoard = activateAntiBodies(antiBodies, newBoard, columns, rows);
         return newBoard;
-    }
-
-    function calculateNeighbors(board: Board, x: number, y: number) {
-        let neighbors = 0;
-        const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
-        for (let i = 0; i < directions.length; i+=1) {
-            const direction = directions[i];
-            const y1 = y + direction[0];
-            const x1 = x + direction[1];
-
-            if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && ![CellType.empty, CellType.antibody].includes(board[y1][x1])) {
-                neighbors += 1;
-            }
-        }
-
-        return neighbors;
     }
 
     function getHasAnyChanges(board: Board, newBoard: Board) {
@@ -132,38 +115,44 @@ export default function Game() {
     }
 
     function editCell({ clientX, clientY }: { clientX: number; clientY: number }) {
+        if (isRunning) {
+            return;
+        }
         setMessage("");
+        const { x, y } = getCellCoordinates(clientX, clientY);
+        const isElementOnMap = x >= 0 && x <= columns && y >= 0 && y <= rows;
+        if (!isElementOnMap) {
+            return;
+        }
+        const cell = cells.find(cell => cell.x === x && cell.y === y);
+        if (cell?.isOriginal) {
+            return;
+        }
+
+        const newBoard = cloneDeep(board);
+        newBoard[y][x] = newBoard[y][x] !== CellType.empty ? CellType.empty : getRandomCellType();
+        
+        if(newBoard[y][x] === CellType.empty){
+            setCellsUsed(cellsUsed - 1);
+        }
+        else if(cellsUsed < maxClicks) {
+            setCellsUsed(cellsUsed + 1);
+        }
+        else {
+            return;
+        }
+
+        setBoard(newBoard);
+    }
+
+    function getCellCoordinates(clientX: number, clientY: number) {
         const elemOffset = getElementOffset();
         const offsetX = clientX - elemOffset.x;
         const offsetY = clientY - elemOffset.y;
-
-        const x = Math.floor(offsetX / cellSize);
-        const y = Math.floor(offsetY / cellSize);
-        
-
-        if (x >= 0 && x <= columns && y >= 0 && y <= rows) {
-            const cell = cells.find(cell => cell.x === x && cell.y === y);
-            if (cell?.isOriginal) {
-                return;
-            }
-    
-            const newBoard = cloneDeep(board);
-            newBoard[y][x] = newBoard[y][x] !== CellType.empty ? CellType.empty : getRandomCellType();
-            const newCell = newBoard[y][x];
-            
-            if(newCell === CellType.empty){
-                setCellsUsed(cellsUsed - 1);
-            }
-            else if(cellsUsed < maxClicks) {
-                setCellsUsed(cellsUsed + 1);
-            }
-            else {
-                return;
-            }
-
-            setBoard(newBoard);
+        return {
+            x: Math.floor(offsetX / cellSize),
+            y: Math.floor(offsetY / cellSize),
         };
-       
     }
 
     function getElementOffset() {
@@ -176,13 +165,8 @@ export default function Game() {
         };
     }
 
-    function onIntervalChanged(event: any) {
-        setInterval(event?.target?.value);
-    }
-
     function stopGame() {
         setIsRunning(false);
-        
     }
 
     function runGame() {
@@ -198,15 +182,23 @@ export default function Game() {
     }
 
     function handleRandom() {
-        setMessage("");
-        const newBoard = cloneDeep(board);
+        setMessage('');
+        const newBoard = cloneDeep(map);
+        const emptyCells = [];
         for (let y = 0; y < rows; y += 1) {
             for (let x = 0; x < columns; x += 1) {
-                newBoard[y][x] = (Math.random() >= 0.7) ? CellType.virus : CellType.empty;
+                if (newBoard[y][x] === CellType.empty) {
+                    emptyCells.push({ x, y });
+                }
             }
         }
+        const randomPicks = sampleSize(emptyCells, maxClicks);
+        randomPicks.forEach(pick => {
+            newBoard[pick.y][pick.x] = CellType.virus;
+        });
+
         setBoard(newBoard);
-        setCellsUsed(0);
+        setCellsUsed(maxClicks);
     }
 
     return (
@@ -227,7 +219,6 @@ export default function Game() {
             </div>
 
             <div className="Controls">
-            Update every <input value={interval} onChange={onIntervalChanged} /> msec
                     {isRunning ?
                         <button className="button" onClick={stopGame}>Stop</button> :
                         <button className="button" onClick={runGame}>Run</button> 
