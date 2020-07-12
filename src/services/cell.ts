@@ -6,7 +6,7 @@ export type Cell = {
     y: number;
     type: CellType;
     isOriginal: boolean;
-}
+};
 
 export enum CellType {
     antibody = 'antibody',
@@ -17,9 +17,18 @@ export enum CellType {
 }
 
 export function activateAntiBodies(antiBodies: CellLocation[], board: Board, columns: number, rows: number) {
-    const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
-    antiBodies.forEach(antibody => {
-        directions.forEach(direction => {
+    const directions = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+    ];
+    antiBodies.forEach((antibody) => {
+        directions.forEach((direction) => {
             const y1 = antibody.y + direction[0];
             const x1 = antibody.x + direction[1];
             if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.virus) {
@@ -31,9 +40,18 @@ export function activateAntiBodies(antiBodies: CellLocation[], board: Board, col
 }
 
 export function activateSuperSpreaders(superSpreaders: CellLocation[], board: Board, columns: number, rows: number) {
-    const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
-    superSpreaders.forEach(superSpreader => {
-        directions.forEach(direction => {
+    const directions = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+    ];
+    superSpreaders.forEach((superSpreader) => {
+        directions.forEach((direction) => {
             const y1 = superSpreader.y + direction[0];
             const x1 = superSpreader.x + direction[1];
             if (x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.virus) {
@@ -46,13 +64,27 @@ export function activateSuperSpreaders(superSpreaders: CellLocation[], board: Bo
 
 export function getNeighbors(board: Board, x: number, y: number, columns: number, rows: number) {
     let neighbors = 0;
-    const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
-    for (let i = 0; i < directions.length; i+=1) {
+    const directions = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+    ];
+    for (let i = 0; i < directions.length; i += 1) {
         const direction = directions[i];
         const y1 = y + direction[0];
         const x1 = x + direction[1];
 
-        const isNearbyCellViralFriendly = x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && ![CellType.empty, CellType.antibody].includes(board[y1][x1]);
+        const isNearbyCellViralFriendly =
+            x1 >= 0 &&
+            x1 < columns &&
+            y1 >= 0 &&
+            y1 < rows &&
+            ![CellType.empty, CellType.antibody].includes(board[y1][x1]);
         if (isNearbyCellViralFriendly) {
             neighbors += 1;
         }
@@ -61,22 +93,18 @@ export function getNeighbors(board: Board, x: number, y: number, columns: number
     return neighbors;
 }
 
-export function getRandomCellType() {
-    if (Math.random() > 0.5) {
-        return CellType.virus;
-    }
-    if (Math.random() > 0.5) {
-        return CellType.deadMatter;
-    }
-    if (Math.random() > 0.5) {
-        return CellType.superSpreader;
-    }
-    return CellType.antibody;
-}
-
 function infectAllNearbyEmpty(superSpreader: CellLocation, board: Board, columns: number, rows: number) {
-    const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
-    directions.forEach(direction => {
+    const directions = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+    ];
+    directions.forEach((direction) => {
         const y1 = superSpreader.y + direction[0];
         const x1 = superSpreader.x + direction[1];
         const isNearbyEmptyCell = x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && board[y1][x1] === CellType.empty;
@@ -89,12 +117,26 @@ function infectAllNearbyEmpty(superSpreader: CellLocation, board: Board, columns
 }
 
 function killAllNearbyEnemies(antibody: CellLocation, board: Board, columns: number, rows: number) {
-    const directions = [[-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1]];
+    const directions = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [1, 0],
+        [1, -1],
+        [0, -1],
+    ];
     let hasKilledEnemies = false;
-    directions.forEach(direction => {
+    directions.forEach((direction) => {
         const y1 = antibody.y + direction[0];
         const x1 = antibody.x + direction[1];
-        const isNearbyViralCell = x1 >= 0 && x1 < columns && y1 >= 0 && y1 < rows && [CellType.superSpreader, CellType.virus].includes(board[y1][x1]);
+        const isNearbyViralCell =
+            x1 >= 0 &&
+            x1 < columns &&
+            y1 >= 0 &&
+            y1 < rows &&
+            [CellType.superSpreader, CellType.virus].includes(board[y1][x1]);
         if (isNearbyViralCell) {
             hasKilledEnemies = true;
             board[y1][x1] = CellType.empty;
@@ -103,6 +145,6 @@ function killAllNearbyEnemies(antibody: CellLocation, board: Board, columns: num
     if (hasKilledEnemies) {
         board[antibody.y][antibody.x] = CellType.empty;
     }
-    
+
     return board;
 }
