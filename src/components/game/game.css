@@ -6,8 +6,8 @@
     margin: 0 auto;
     background-color: #000;
     background-image:
-        linear-gradient(#333 1px, transparent 1px),
-        linear-gradient(90deg, #333 1px, transparent 1px);
+        linear-gradient(#333 0.125rem, transparent 0.125rem),
+        linear-gradient(90deg, #333 0.125rem, transparent 0.125rem);
 }
 
 

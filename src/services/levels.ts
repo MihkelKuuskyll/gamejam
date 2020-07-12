@@ -1,9 +1,9 @@
 import { CellType, Board } from './cell';
 
 const level1 = {
-    cellSize: 20,
-    height: 60,
-    width: 60,
+    cellSize: 80,
+    height: 240,
+    width: 240,
     maxClicks: 3,
     map: [
         [CellType.empty, CellType.empty, CellType.empty],
@@ -13,9 +13,9 @@ const level1 = {
 };
 
 const level2 = {
-    cellSize: 20,
-    height: 60,
-    width: 60,
+    cellSize: 80,
+    height: 240,
+    width: 240,
     maxClicks: 3,
     map: [
         [CellType.virus, CellType.empty, CellType.empty],
@@ -25,9 +25,9 @@ const level2 = {
 };
 
 const oneAntibodyLevel = {
-    cellSize: 20,
-    height: 200,
-    width: 200,
+    cellSize: 60,
+    height: 600,
+    width: 600,
     maxClicks: 1,
     map: [
         [
