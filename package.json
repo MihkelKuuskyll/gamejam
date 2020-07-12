@@ -2,7 +2,7 @@
   "name": "gamejam",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mihkelkuuskyll.github.io/gamejam/",
+  "homepage": "https://mihkelkuuskyll.github.io/gamejam/",
   "dependencies": {
     "lodash": "^4.17.19",
     "react": "^16.13.1",
