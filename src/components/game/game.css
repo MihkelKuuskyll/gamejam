@@ -90,8 +90,13 @@
 
 .CellsRemaining {
     font-family:Berlin Sans FB;
-    font-size:1.8rem;
+    font-size:1.6rem;
     margin-top: 3rem;
+}
+.CellsRemaining .Clicks {
+    color:#d34c5e;
+    font-family:Berlin Sans FB;
+    font-size:1.8rem;
 }
 
 .CellsRemaining p {
