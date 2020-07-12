@@ -261,7 +261,7 @@ export default function Game() {
                 <p>Virus goes brr brr - you better stop it!</p>
             </div>
             <div className="CellsRemaining">
-                <p>Antibodies remaining: {maxClicks - cellsUsed}</p>
+                <p>ANTIBODIES REMAINING <span className="Clicks">: {maxClicks - cellsUsed}</span></p>
             </div>
             <div
                 className="Board"
@@ -330,7 +330,6 @@ export default function Game() {
                 <p>created by not mario brothers
                 </p>
             </div>
-            
             <Sound loop
                 url={x}
                 playStatus="PLAYING"

@@ -23,7 +23,7 @@ export default function Tutorial() {
         <tr>
             <td><img id="CellPicture" src={virus} alt="Virus"/></td>
             <td>Virus</td>
-            <td id="description">This little guy spreads if it has 2 or 3 infected cells around it. Also if a healthy cell is surrounded by 3 infected cells it becomes infected.</td>
+            <td id="description">This little guy survives if it has 2 or 3 infected cells around it. Also if a healthy cell is surrounded by 3 infected cells it becomes infected.</td>
         </tr>
 
         <tr>
@@ -35,7 +35,7 @@ export default function Tutorial() {
         <tr>
             <td><img id="CellPicture" src={deadmatter} alt="Dead matter"/></td>
             <td>Dead cell</td>
-            <td>This cell has died and is inert. Dead cells can't turn into a virus</td>
+            <td>This cell has died and is inert. Dead cells can't turn into a virus.</td>
         </tr>
 
         <tr>
