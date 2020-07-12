@@ -8,21 +8,42 @@ import { CellType, Cell, getRandomCellType, Board, activateSuperSpreaders, activ
 import sampleSize from 'lodash/sampleSize';
 
 export default function Game() {
-    const { height, width, cellSize, map, maxClicks } = getLevel(8);
-    const rows = height / cellSize;
-    const columns = width / cellSize;
     let boardRef: any;
+    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(0);
+    const [cellSize,setCellSize] = useState(0);
+    const [map, setMap] = useState<Board>([]);
+    const [maxClicks,setMaxClicks] = useState(0);
     const [board, setBoard] = useState<Board>(map);
     const [cells, setCells] = useState<Cell[]>([]);
     const [interval, setInterval] = useState(500);
+    const [isLoading, setIsLoading] = useState(true);
     const [isRunning, setIsRunning] = useState(false);
     const [message, setMessage] = useState('');
     const [cellsUsed, setCellsUsed] = useState(0);
     const [turnCounter, setTurnCounter] = useState(0);
+    const [currentLevel, setCurrentLevel] = useState(1);
+    const rows = height / cellSize;
+    const columns = width / cellSize;
+    const [hasRoundEnded,setHasRoundEnded] = useState(false);
 
     useEffect(() => {
+        if (isLoading) {
+            return;
+        }
         setCells(makeCells());
     }, [board]);
+
+    useEffect(() => {
+        const level = getLevel(currentLevel);
+        setHeight(level.height);
+        setWidth(level.width);
+        setCellSize(level.cellSize);
+        setMap(level.map);
+        setMaxClicks(level.maxClicks);
+        setIsLoading(false);
+        setBoard(level.map);
+    },[currentLevel] );
 
     useInterval(() => {
         if (isRunning) {
@@ -42,6 +63,7 @@ export default function Game() {
              setIsRunning(false); 
              const messageType = getIsEmptyBoard(newBoard) ? 'success' : 'fail';
              setMessage(levelEndMessage[messageType](turnCounter));
+             setHasRoundEnded(true);
              }
         setTurnCounter(turnCounter+1);
         
@@ -220,15 +242,31 @@ export default function Game() {
 
             <div className="Controls">
                     {isRunning ?
-                        <button className="button" onClick={stopGame}>Stop</button> :
-                        <button className="button" onClick={runGame}>Run</button> 
+                    <>
+                        <button className="button" onClick={stopGame}>Stop</button>
+                    </>:
+                    null
                     }
+                    {!hasRoundEnded && !isRunning ?
+                    <>
+                        <button className="button" onClick={runGame}>Run</button> 
                         <button className="button" onClick={handleRandom}>Random</button>
-                        <button className="button" onClick={handleClear}>Clear</button>
+                        <button className="button" onClick={() => {handleClear(); setHasRoundEnded(false);}}>Clear</button>
+                    </>:
+                    null
+                    }
             </div>
             <div className="Message">
-                {message}
-            </div>
+                <p>{message}</p>
+                {!isRunning && hasRoundEnded?
+                <>
+                <button className="nextButton" onClick={() => {handleClear(); setHasRoundEnded(false);}}>Try again</button>
+                <button className="nextButton" onClick={() => {setCurrentLevel(currentLevel + 1);setHasRoundEnded(false);setMessage('');}}>Continue</button>
+                </> :
+                null
+                }
+                
+             </div>
         </div>
     );
 }

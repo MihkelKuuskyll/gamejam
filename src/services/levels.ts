@@ -1,4 +1,4 @@
-import { CellType } from "./cell";
+import { CellType, Board } from "./cell";
 
 
 const level1 = {
@@ -107,10 +107,10 @@ type Level = {
     height: number;
     width: number;
     maxClicks: number;
-    map: CellType[][];
+    map: Board;
 }
 
 export const levelEndMessage = {
-    success: (turnCounter: number) => `GG, you did it! It took ${turnCounter} iterations. Next time it won't be as easy!`,
-    fail: (turnCounter: number) => `You have failed to stop the virus from spreading, it took ${turnCounter} iterations.`,
+    success: (turnCounter: number) => `GG, you did it! It took ${turnCounter} you iterations. Next time it won't be as easy!`,
+    fail: (turnCounter: number) => `You have failed to stop the virus from spreading, it took you  ${turnCounter} iterations.`,
 };
